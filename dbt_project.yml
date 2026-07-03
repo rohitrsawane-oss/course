@@ -35,3 +35,6 @@ models:
     src:
       +materialized: view
       +schema: SRC
+    dim:
+      +materialized: table
+      +schema: dim
