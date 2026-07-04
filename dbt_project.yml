@@ -38,3 +38,6 @@ models:
     dim:
       +materialized: table
       +schema: dim
+seeds:
+  analytics:
+    +schema: SRC
