@@ -41,3 +41,6 @@ models:
 seeds:
   analytics:
     +schema: SRC
+data_tests:
+  +store_failures: true
+  +schema: test_failures    
