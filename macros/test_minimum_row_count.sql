@@ -1,4 +1,4 @@
-{% test minimum_row_count(model, min_row_count) %}
+{% macro test_minimum_row_count(model, min_row_count) %}
 
 
 SELECT
@@ -7,4 +7,4 @@ FROM
     {{ model }}
 HAVING
     COUNT(*) < {{ min_row_count }}
-{% endtest %}
+{% endmacro %}

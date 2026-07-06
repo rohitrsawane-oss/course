@@ -30,28 +30,32 @@ models:
           - positive_values          
 
   - name: dim_hosts_cleansed
+    description: "Cleansed dimension table containing detailed profiles of Airbnb hosts with normalized attributes." # Model description
     config:
       contract:
-        enforced: true # 🔒 This tells dbt to parse the constraints and data types below
+        enforced: true 
     columns:
       - name: host_id
         data_type: integer
-        constraints:   # 🚫 Snowflake metadata markers
+        description: "The unique primary identifier for each host." #  Column description
+        constraints:   
           - type: primary_key
           - type: not_null
-        data_tests:    # 🛡️ Your safety engine (checks for duplicates Snowflake ignores)
+        data_tests:    
           - unique
           - not_null
 
       - name: host_name
         data_type: string
-        constraints:   # 🛑 This actively blocks NULL inserts at execution time in Snowflake!
+        description: "The verified name of the host profile."
+        constraints:   
           - type: not_null
         data_tests:
           - not_null
 
       - name: is_superhost
         data_type: string
+        description: "Flag indicating whether the user has achieved Airbnb Superhost status. 't' for true, 'f' for false."
         data_tests:
           - accepted_values:
               values:
@@ -60,6 +64,8 @@ models:
 
       - name: created_at
         data_type: timestamp_ntz
+        description: "The timestamp when the host profile was originally created."
 
       - name: updated_at
         data_type: timestamp_ntz
+        description: "The timestamp when the host profile records were last updated."
