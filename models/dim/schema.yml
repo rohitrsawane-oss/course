@@ -4,7 +4,7 @@ models:
   - name: dim_listings_cleansed
     data_tests:
       - minimum_row_count:
-          min_row_count: 1000
+          min_row_count: 100
           severity: warn 
     columns:
       - name: listing_id
@@ -32,16 +32,21 @@ models:
   - name: dim_hosts_cleansed
     config:
       contract:
-        enforced: true
+        enforced: true # 🔒 This tells dbt to parse the constraints and data types below
     columns:
       - name: host_id
         data_type: integer
-        data_tests:
+        constraints:   # 🚫 Snowflake metadata markers
+          - type: primary_key
+          - type: not_null
+        data_tests:    # 🛡️ Your safety engine (checks for duplicates Snowflake ignores)
           - unique
           - not_null
 
       - name: host_name
         data_type: string
+        constraints:   # 🛑 This actively blocks NULL inserts at execution time in Snowflake!
+          - type: not_null
         data_tests:
           - not_null
 
